@@ -12,6 +12,12 @@ export const cartReducers = (state = initialState, action) => {
         cart: action.payload,
       };
     }
+    case Actions.removeItem:{
+      return{
+          ...state,
+          cart:action.payload,
+      }
+  }
     default:
       return state;
   }

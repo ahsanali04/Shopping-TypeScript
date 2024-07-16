@@ -27,3 +27,14 @@ export const getCart = (item: Product, cart: Product[]) => {
   };
 };
 
+export const deleteItem = (itemId:number,cart:Product[]) => {
+  return dispatch => {
+    let filterData
+    try {
+        filterData = cart.filter(record => record.id !== itemId);
+      } catch (e) {
+        console.log('error', e);
+      }  
+    dispatch({type:Actions.increment_product,payload:filterData})
+  };
+};

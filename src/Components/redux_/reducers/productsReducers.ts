@@ -5,7 +5,7 @@ const initialState = {
 };
 
 export const prodcutsReducer = (state = initialState, action) => {
-//   console.log('action', action.payload);
+  //   console.log('action', action.payload);
   switch (action.type) {
     case Actions.get_products: {
       return {

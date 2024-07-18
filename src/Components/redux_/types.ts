@@ -9,4 +9,3 @@ export const delete_user = 'delete_user';
 export const get_user = 'get_user';
 export const get_cart = 'get_cart';
 export const removeItem = 'removeItem';
-

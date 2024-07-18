@@ -27,30 +27,30 @@ export const getCart = (item: Product, cart: Product[]) => {
   };
 };
 
-export const incrementCart = (itemId:number,cart:Product[]) => {
+export const incrementCart = (itemId: number, cart: Product[]) => {
   return dispatch => {
     const updatedCart = cart.map(item => {
-        if (item.id === itemId) {
-          return {
-            ...item,
-            quantity: item.quantity + 1,
-          };
-        }
-        return item;
-      });
-      console.log('updatedCart', updatedCart)
-    dispatch({type:Actions.increment_product,payload:updatedCart})
+      if (item.id === itemId) {
+        return {
+          ...item,
+          quantity: item.quantity + 1,
+        };
+      }
+      return item;
+    });
+    console.log('updatedCart', updatedCart);
+    dispatch({type: Actions.increment_product, payload: updatedCart});
   };
 };
 
-export const deleteItem = (itemId:number,cart:Product[]) => {
+export const deleteItem = (itemId: number, cart: Product[]) => {
   return dispatch => {
-    let filterData
+    let filterData;
     try {
-        filterData = cart.filter(record => record.id !== itemId);
-      } catch (e) {
-        console.log('error', e);
-      }  
-    dispatch({type:Actions.increment_product,payload:filterData})
+      filterData = cart.filter(record => record.id !== itemId);
+    } catch (e) {
+      console.log('error', e);
+    }
+    dispatch({type: Actions.increment_product, payload: filterData});
   };
 };

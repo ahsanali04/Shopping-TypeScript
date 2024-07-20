@@ -41,7 +41,7 @@ interface Product {
     rate: number;
     count: number;
   };
-  quantity:number;
+  quantity: number;
 }
 
 const Shopping: FunctionComponent<ShoppingScreenProp> = ({
@@ -55,7 +55,7 @@ const Shopping: FunctionComponent<ShoppingScreenProp> = ({
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
   const cart: Product[] = useSelector(selectCart);
   const dispatch = useDispatch();
-  const count = cart.length
+  const count = cart.length;
   useEffect(() => {
     fetchCategories();
     fetchData();
@@ -133,15 +133,15 @@ const Shopping: FunctionComponent<ShoppingScreenProp> = ({
     console.log('!!res', res);
     if (result) {
       // If the product is already in the cart, increment the quantity
-      const updatedCart = cart.map(cartItem => 
-        cartItem.id === item.id 
-          ? { ...cartItem, quantity: cartItem.quantity + 1 }
-          : cartItem
+      const updatedCart = cart.map(cartItem =>
+        cartItem.id === item.id
+          ? {...cartItem, quantity: cartItem.quantity + 1}
+          : cartItem,
       );
       dispatch(updateCart(updatedCart));
     } else {
       // If the product is not in the cart, add it with a quantity of 1
-      const updatedItem = { ...item, quantity: 1 };
+      const updatedItem = {...item, quantity: 1};
       dispatch(updateCart([...cart, updatedItem]));
     }
     navigation.navigate('Cart');
@@ -151,13 +151,15 @@ const Shopping: FunctionComponent<ShoppingScreenProp> = ({
     <View style={styles.container}>
       <Loader showModal={loader} LoaderColor={'black'} LoaderSize={'large'} />
       {/* <Header name="Shopping" /> */}
-      <TouchableOpacity style={styles.opacity} onPress={()=> navigation.navigate('Cart')}>
+      <TouchableOpacity
+        style={styles.opacity}
+        onPress={() => navigation.navigate('Cart')}>
         <AntDesign name="shoppingcart" style={styles.cartIcon1} />
-      {count > 0 && (
-        <View style={styles.badgeContainer}>
-          <Text style={styles.badgeText}>{count}</Text>
-        </View>
-      )}
+        {count > 0 && (
+          <View style={styles.badgeContainer}>
+            <Text style={styles.badgeText}>{count}</Text>
+          </View>
+        )}
       </TouchableOpacity>
       {loader ? (
         <View>
@@ -337,7 +339,7 @@ const styles = StyleSheet.create({
   },
   View: {
     marginHorizontal: responsiveWidth(4),
-    flex:1
+    flex: 1,
   },
   subView: {
     backgroundColor: '#fff',
@@ -392,15 +394,14 @@ const styles = StyleSheet.create({
   cartIcon: {
     fontSize: responsiveFontSize(3.4),
   },
-  cartIcon1:{
-    fontSize:responsiveFontSize(3.8),
-    
+  cartIcon1: {
+    fontSize: responsiveFontSize(3.8),
   },
-  count:{
-    height:responsiveHeight(4),
-    width:responsiveWidth(4),
-    borderRadius:responsiveWidth(2),
-    backgroundColor:'#000'
+  count: {
+    height: responsiveHeight(4),
+    width: responsiveWidth(4),
+    borderRadius: responsiveWidth(2),
+    backgroundColor: '#000',
   },
   badgeContainer: {
     bottom: responsiveHeight(3),
@@ -418,10 +419,10 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: responsiveWidth(3), // Adjust according to your preference
   },
-  opacity:{
-    marginRight:responsiveWidth(5),
+  opacity: {
+    marginRight: responsiveWidth(5),
     // position:'relative',
-    marginTop:responsiveHeight(3),
-    alignSelf:'flex-end'
-  }
+    marginTop: responsiveHeight(3),
+    alignSelf: 'flex-end',
+  },
 });

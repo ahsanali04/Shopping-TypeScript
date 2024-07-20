@@ -26,9 +26,9 @@ export type RootStackParam = {
       };
     };
   };
-  Customers:undefined;
-  Create:undefined;
-  Cart:undefined;
+  Customers: undefined;
+  Create: undefined;
+  Cart: undefined;
 };
 
 const stack = createStackNavigator<RootStackParam>();

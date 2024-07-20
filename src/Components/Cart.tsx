@@ -1,4 +1,4 @@
-import React, {FunctionComponent,useState} from 'react';
+import React, {FunctionComponent, useState} from 'react';
 import {
   View,
   FlatList,
@@ -28,42 +28,42 @@ interface Product {
     rate: number;
     count: number;
   };
-  quantity:number;
+  quantity: number;
 }
 
 const Cart: FunctionComponent = () => {
   const cart = useSelector(selectCart);
   const dispatch = useDispatch();
 
-  const increase = (item:Product) =>{
- const updatedUsers = cart.map(user => {
-  if (user.id === item?.id) {
-    return {
-      ...user,
-      quantity : user.quantity +1
-    };
-  }
-
-  return user;
-});
-dispatch(updateCart(updatedUsers))
-}
-
-  const decrease = (item:Product) =>{
-   if(item.quantity > 1){
+  const increase = (item: Product) => {
     const updatedUsers = cart.map(user => {
       if (user.id === item?.id) {
         return {
           ...user,
-          quantity : user.quantity -1
+          quantity: user.quantity + 1,
         };
       }
-    
+
       return user;
     });
-    dispatch(updateCart(updatedUsers))
-  }
-  }
+    dispatch(updateCart(updatedUsers));
+  };
+
+  const decrease = (item: Product) => {
+    if (item.quantity > 1) {
+      const updatedUsers = cart.map(user => {
+        if (user.id === item?.id) {
+          return {
+            ...user,
+            quantity: user.quantity - 1,
+          };
+        }
+
+        return user;
+      });
+      dispatch(updateCart(updatedUsers));
+    }
+  };
 
   const deleteRecord = (item: Product) => {
     try {
@@ -100,12 +100,16 @@ dispatch(updateCart(updatedUsers))
                 <Text style={styles.price}>{item?.price} $</Text>
               </View>
               <View style={styles.increase}>
-              <TouchableOpacity onPress={()=>decrease(item)} style={styles.increaseDecreaseOpacity}>
+                <TouchableOpacity
+                  onPress={() => decrease(item)}
+                  style={styles.increaseDecreaseOpacity}>
                   <AntDesign name="minus" style={styles.cartIcon} />
                 </TouchableOpacity>
-                
+
                 <Text style={styles.quantity}>{item?.quantity}</Text>
-                <TouchableOpacity onPress={()=> increase(item)} style={styles.increaseDecreaseOpacity}>
+                <TouchableOpacity
+                  onPress={() => increase(item)}
+                  style={styles.increaseDecreaseOpacity}>
                   <AntDesign name="plus" style={styles.cartIcon} />
                 </TouchableOpacity>
                 <TouchableOpacity
@@ -118,7 +122,12 @@ dispatch(updateCart(updatedUsers))
           </View>
         )}
       />
-      <TouchableOpacity disabled={cart?.length < 1} style={[styles.checkout,{backgroundColor:cart?.length<1 ?'gray':'#000'}]}>
+      <TouchableOpacity
+        disabled={cart?.length < 1}
+        style={[
+          styles.checkout,
+          {backgroundColor: cart?.length < 1 ? 'gray' : '#000'},
+        ]}>
         <Text style={styles.button}>Checkout</Text>
       </TouchableOpacity>
     </View>
@@ -184,24 +193,23 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  text:{
-    justifyContent:'center',
+  text: {
+    justifyContent: 'center',
   },
-  checkout:{
-    marginHorizontal:responsiveWidth(4),
-    height:responsiveHeight(10),
-    marginVertical:responsiveHeight(1),
-    justifyContent:'center',
-    alignContent:'center',
-    borderRadius:responsiveHeight(1)
-
+  checkout: {
+    marginHorizontal: responsiveWidth(4),
+    height: responsiveHeight(10),
+    marginVertical: responsiveHeight(1),
+    justifyContent: 'center',
+    alignContent: 'center',
+    borderRadius: responsiveHeight(1),
   },
-  button:{
-    color:'#fff',
-    textAlign:'center',
-    fontSize:responsiveFontSize(3),
-    fontWeight:'bold',
-  }
+  button: {
+    color: '#fff',
+    textAlign: 'center',
+    fontSize: responsiveFontSize(3),
+    fontWeight: 'bold',
+  },
 });
 
 export default Cart;

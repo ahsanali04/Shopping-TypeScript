@@ -17,7 +17,7 @@ export const DataSlice = createSlice({
   },
 });
 
-export const {updateData,updateCart} = DataSlice.actions;
+export const {updateData, updateCart} = DataSlice.actions;
 
 export const selectData = state => state.data.user;
 export const selectCart = state => state.data.Cart;

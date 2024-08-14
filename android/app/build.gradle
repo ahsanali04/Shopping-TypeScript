@@ -1,4 +1,15 @@
 apply plugin: "com.android.application"
+
+project.ext.envConfigFiles = [
+   release: ".env.dev"
+   debug: ".env.dev"
+   proddebug: ".env.prod",
+   prodrelease: ".env.prod",
+   devrelease: ".env.dev",
+   devdebug: ".env.dev",
+]
+
+apply from: project(':react-native-config').projectDir.getPath() + "/dotenv.gradle" // react-native-config
 apply plugin: "org.jetbrains.kotlin.android"
 apply plugin: "com.facebook.react"
 
@@ -74,6 +85,8 @@ android {
     buildToolsVersion rootProject.ext.buildToolsVersion
     compileSdk rootProject.ext.compileSdkVersion
 
+    flavorDimensions "default"
+    
     namespace "com.awesomeproject"
     defaultConfig {
         applicationId "com.awesomeproject"

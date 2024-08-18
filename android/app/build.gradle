@@ -86,7 +86,20 @@ android {
     compileSdk rootProject.ext.compileSdkVersion
 
     flavorDimensions "default"
-    
+     productFlavors {
+        prod {
+            minSdkVersion rootProject.ext.minSdkVersion
+            applicationId "com.awesomeproject"
+            targetSdkVersion rootProject.ext.targetSdkVersion
+            resValue "string", "build_config_package", "com.awesomeproject"
+        }
+        dev {
+            minSdkVersion rootProject.ext.minSdkVersion
+            applicationId "com.awesomeproject"
+            targetSdkVersion rootProject.ext.targetSdkVersion
+            resValue "string", "build_config_package", "com.awesomeproject"
+        }
+    }
     namespace "com.awesomeproject"
     defaultConfig {
         applicationId "com.awesomeproject"

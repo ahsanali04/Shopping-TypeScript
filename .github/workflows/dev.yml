@@ -1,0 +1,36 @@
+name: Release iOS / Android apps to internal testing
+on:
+  push:
+    branches:
+      - develop
+    workflow_dispatch:
+jobs:
+
+  release-android:
+    name: Release android app to development environment
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      # - name: Decrypt secrets
+      #   run: sh ./.github/scripts/decrypt.sh
+      #   env:
+      #     GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: "18"
+
+      - name: Setup Ruby
+        uses: actions/setup-ruby@v1
+
+      - name: Install Fastlane
+        run: cd android && bundle install && cd ..
+
+      - name: Install packages
+        run: yarn install
+
+      - name: Execute Fastlane command
+        run: cd android && fastlane development_release

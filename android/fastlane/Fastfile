@@ -1,0 +1,32 @@
+# Uncomment the line if you want fastlane to automatically update itself
+# update_fastlane
+
+default_platform(:android)
+
+platform :android do
+
+  desc "Preparing for release"
+  lane :prepare_release do
+    increment_version_code
+    gradle(task: "clean", print_command: false, print_command_output: false)
+    gradle(
+      task: "bundle",
+      build_type: "Release",
+      print_command: false,
+      print_command_output: false,
+      properties: ENV['FL_GRADLE_PROPERTIES']
+    )
+  end
+
+  desc "Releasing in Internal testing track on Play Store"
+  lane :development_release do
+    prepare_release
+    # supply(track: 'internal')
+  end
+
+#   desc "Releasing on Play Store"
+#   lane :production_release do
+#     supply(track: 'beta', track_promote_to: 'production')
+#   end
+
+end

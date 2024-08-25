@@ -7,7 +7,7 @@ platform :android do
 
   desc "Preparing for release"
   lane :prepare_release do
-    increment_version_code
+    # increment_version_code
     gradle(task: "clean", print_command: false, print_command_output: false)
     gradle(
       task: "bundle",

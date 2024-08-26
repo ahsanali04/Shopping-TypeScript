@@ -10,8 +10,8 @@ platform :android do
     # increment_version_code
     # gradle(task: "clean", print_command: false, print_command_output: false)
     gradle(
-      task: "bundle",
-      flavor: "dev",
+      task: "assemble",
+      flavor: "Dev",
       build_type: "Release",
       print_command: false,
       print_command_output: false,

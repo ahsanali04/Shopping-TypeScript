@@ -50,7 +50,7 @@ jobs:
         run: cd android && bundle install && cd ..
 
       - name: Install packages
-        run: yarn install
+        run: npm install
 
       - name: Execute Fastlane command
         run: cd android && fastlane development_release

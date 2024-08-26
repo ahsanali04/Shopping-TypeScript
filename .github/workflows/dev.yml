@@ -3,7 +3,7 @@ on:
   push:
     branches:
       - develop
-    workflow_dispatch:
+        workflow_dispatch
 jobs:
 
   release-android:
@@ -12,6 +12,9 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
+
+      - name: Make gradlew executable
+        run: chmod +x ./android/gradlew
 
       # - name: Decrypt secrets
       #   run: sh ./.github/scripts/decrypt.sh

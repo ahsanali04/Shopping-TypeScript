@@ -10,7 +10,8 @@
     "android:prod": "cp .env.prod .env  prod && react-native run-android --mode=proddebug --appIdSuffix prod",
     "ios": "react-native run-ios --simulator 'iPhone 15 Pro' --scheme 'Awesome-Dev'",
     "android:dev-release": "cp .env.dev .env  &&  cd android && gradlew assembleDevRelease && cd ..",
-    "android:prod-release": "cp .env.prod .env  &&  cd android && gradlew assembleProdRelease && cd .."
+    "android:prod-release": "cp .env.prod .env  &&  cd android && gradlew assembleProdRelease && cd ..",
+    "android:dev-release-aab": "cp .env.dev .env  &&  cd android && gradlew bundleDevRelease && cd .."
   },
   "dependencies": {
     "@react-navigation/native": "^6.1.17",

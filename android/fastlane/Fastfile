@@ -13,8 +13,8 @@ platform :android do
       task: "assemble",
       flavor: "Dev",
       build_type: "Release",
-      print_command: false,
-      print_command_output: false,
+      print_command: true,
+      print_command_output: true,
       properties: {
         "android.injected.signing.store.file" => ENV["KEYSTORE"],
         "android.injected.signing.store.password" => ENV["PASSWROD"],

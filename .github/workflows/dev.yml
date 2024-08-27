@@ -56,6 +56,4 @@ jobs:
         run: cd android && fastlane env
 
       - name: Execute Fastlane command
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: cd android && fastlane development_release

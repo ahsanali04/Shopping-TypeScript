@@ -24,7 +24,10 @@ platform :android do
   
     UI.message("New Version Code: #{version_code}")
     UI.message("New Version Name: #{version_name}")
-  
+
+    sh "git config --global user.email 'ahsanali.official085@gmail.com'"
+    sh "git config --global user.name 'Ahsan Ali'"
+
     # Commit the changes to version code and version name
     git_add(path: gradle_file_path)
     git_commit(

@@ -34,7 +34,7 @@ platform :android do
       path: gradle_file_path,
       message: "Incremented version to #{version_name} (code: #{version_code})"
     )
-    sh "git push https://ahsanali04:#{ENV['GITHUB_TOKEN']}@github.com/ahsanali04/Shopping-TypeScript.git HEAD:develop"
+    
     
   end
 
@@ -61,6 +61,7 @@ platform :android do
   lane :development_release do
     prepare_release
     # supply(track: 'internal')
+    sh "git push https://ahsanali04:#{ENV['GITHUB_TOKEN']}@github.com/ahsanali04/Shopping-TypeScript.git HEAD:develop"
   end
 
 #   desc "Releasing on Play Store"

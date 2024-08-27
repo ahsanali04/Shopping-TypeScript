@@ -5,12 +5,42 @@ default_platform(:android)
 
 platform :android do
 
+  desc "Increment version name and code"
+  lane :increment_version_name_and_code do
+
+    gradle_file_path = "app/build.gradle"
+
+    # Increment version code and name
+    increment_version_code(
+      gradle_file_path: gradle_file_path
+    )
+    increment_version_name(
+      gradle_file_path: gradle_file_path
+    )
+  
+    # Retrieve the updated version code and name
+    version_code = get_version_code(gradle_file_path: gradle_file_path)
+    version_name = get_version_name(gradle_file_path: gradle_file_path)
+  
+    UI.message("New Version Code: #{version_code}")
+    UI.message("New Version Name: #{version_name}")
+  
+    # Commit the changes to version code and version name
+    git_add(path: gradle_file_path)
+    git_commit(
+      path: gradle_file_path,
+      message: "Incremented version to #{version_name} (code: #{version_code})"
+    )
+    sh "git push https://ahsanali04:${ENV['GITHUB_TOKEN']}@github.com/ahsanali04/Shopping-TypeScript.git HEAD:develop"
+    
+  end
+
   desc "Preparing for release"
   lane :prepare_release do
-    # increment_version_code
+    increment_version_name_and_code
     gradle(task: "clean")
     gradle(
-      task: "assemble",
+      task: "bundle",
       flavor: "Dev",
       build_type: "Release",
       print_command: true,

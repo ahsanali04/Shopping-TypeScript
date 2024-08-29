@@ -1,8 +1,8 @@
 name: Release Android app
 on:
-  push:
-    branches:
-      - develop
+  # push:
+  #   branches:
+  #     - develop
   workflow_dispatch:
   
 jobs:

@@ -154,7 +154,7 @@ const Shopping: FunctionComponent<ShoppingScreenProp> = ({
       <TouchableOpacity
         style={styles.opacity}
         onPress={() => navigation.navigate('Cart')}>
-        <AntDesign name="shoppingcart" style={styles.cartIcon1} />
+        <AntDesign name="shoppingcart" style={styles.cartIcon1}  />
         {count > 0 && (
           <View style={styles.badgeContainer}>
             <Text style={styles.badgeText}>{count}</Text>
@@ -211,6 +211,7 @@ const Shopping: FunctionComponent<ShoppingScreenProp> = ({
           <View style={styles.subView}>
             <TextInput
               placeholder="Search"
+              placeholderTextColor={'#000'}
               style={styles.textInput}
               value={search}
               onChangeText={text => setSearch(text)}
@@ -275,7 +276,7 @@ const Shopping: FunctionComponent<ShoppingScreenProp> = ({
                         </Text>
                       </View>
                       <View style={styles.priceView}>
-                        <Text>{item?.price}</Text>
+                        <Text style={styles.priceText}>{item?.price+' $'}</Text>
                         <TouchableOpacity onPress={() => addToCart(item)}>
                           <AntDesign
                             name="shoppingcart"
@@ -313,6 +314,7 @@ const styles = StyleSheet.create({
   },
   text: {
     marginTop: 10,
+    color:'#000',
   },
   image: {
     height: 120,
@@ -336,6 +338,7 @@ const styles = StyleSheet.create({
     height: 55,
     borderRadius: 10,
     marginHorizontal: 20,
+    color:'#000'
   },
   View: {
     marginHorizontal: responsiveWidth(4),
@@ -393,9 +396,11 @@ const styles = StyleSheet.create({
   },
   cartIcon: {
     fontSize: responsiveFontSize(3.4),
+    color:'#000'
   },
   cartIcon1: {
     fontSize: responsiveFontSize(3.8),
+    color:'#000'
   },
   count: {
     height: responsiveHeight(4),
@@ -425,4 +430,7 @@ const styles = StyleSheet.create({
     marginTop: responsiveHeight(3),
     alignSelf: 'flex-end',
   },
+  priceText:{
+    color:'#000'
+  }
 });

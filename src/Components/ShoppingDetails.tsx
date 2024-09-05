@@ -40,8 +40,8 @@ const ShoppingDetails: FunctionComponent<ShoppingDetailsProp> = ({
       <View style={styles.subView}>
         <Text style={styles.category}>{Data?.category}</Text>
         <View style={styles.price}>
-          <Text>Price: {Data?.price}</Text>
-          <Text>Rating: {Data?.rating?.rate}</Text>
+          <Text style={styles.priceText}>Price: {Data?.price}</Text>
+          <Text style={styles.priceText}>Rating: {Data?.rating?.rate}</Text>
         </View>
         <Text style={styles.title}>{Data?.title}</Text>
         <Text style={styles.desc}>{Data?.description}</Text>
@@ -73,20 +73,27 @@ const styles = StyleSheet.create({
     marginTop: responsiveHeight(2),
     fontSize: responsiveFontSize(3),
     fontWeight: 'bold',
+    color:'#000',
   },
   price: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginTop: responsiveHeight(2),
     fontWeight: '800',
+    color:'#000'
   },
   title: {
     marginTop: responsiveHeight(2),
     fontWeight: '900',
     fontSize: responsiveFontSize(2),
+    color:'#000'
   },
   desc: {
     marginTop: responsiveHeight(2),
     fontSize: responsiveFontSize(2),
+    color:'#000',
   },
+  priceText:{
+    color:'#000'
+  }
 });

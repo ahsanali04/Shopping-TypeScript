@@ -7,6 +7,7 @@ import {
   StatusBar,
   Image,
   TouchableOpacity,
+  Alert,
 } from 'react-native';
 import {selectCart, updateCart} from './redux/slices/DataSlice';
 import {useSelector, useDispatch} from 'react-redux';
@@ -16,6 +17,7 @@ import {
   responsiveWidth,
 } from 'react-native-responsive-dimensions';
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import { useStripe } from '@stripe/stripe-react-native';
 
 interface Product {
   id: number;
@@ -34,6 +36,9 @@ interface Product {
 const Cart: FunctionComponent = () => {
   const cart = useSelector(selectCart);
   const dispatch = useDispatch();
+
+  const { initPaymentSheet, presentPaymentSheet } = useStripe();
+  const API_URL = "http://192.168.1.8:3000"
 
   const increase = (item: Product) => {
     const updatedUsers = cart.map(user => {
@@ -62,6 +67,65 @@ const Cart: FunctionComponent = () => {
         return user;
       });
       dispatch(updateCart(updatedUsers));
+    }
+  };
+
+  const totalPrice = () =>{
+  const res =  cart.map((item)=>(item.price*item.quantity))
+  const result = res.reduce((acc,cur)=>acc+cur)
+  // console.log('result', result)
+  return result;
+  }
+
+  const fetchPaymentSheetParams = async () => {
+    const response = await fetch(`${API_URL}/payments/intents`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body:JSON.stringify({amount:totalPrice()*100})
+    });
+    const { paymentIntent, ephemeralKey, customer} = await response.json();
+
+    return {
+      paymentIntent,
+      ephemeralKey, 
+      customer,
+    };
+  };
+
+  const initializePaymentSheet = async () => {
+    const {
+      paymentIntent,
+      ephemeralKey,
+      customer,
+    } = await fetchPaymentSheetParams();
+
+    const { error } = await initPaymentSheet({
+      merchantDisplayName: "Ahsan Ali",
+      customerId: customer,
+      customerEphemeralKeySecret: ephemeralKey,
+      paymentIntentClientSecret: paymentIntent,
+      // Set `allowsDelayedPaymentMethods` to true if your business can handle payment
+      //methods that complete payment after a delay, like SEPA Debit and Sofort.
+      allowsDelayedPaymentMethods: true,
+      defaultBillingDetails: {
+        name: 'Jane Doe',
+      }
+    });
+    if (!error) {
+      // setLoading(true);
+      openPaymentSheet();
+    }
+  };
+
+  const openPaymentSheet = async () => {
+    const { error } = await presentPaymentSheet();
+
+    if (error) {
+      Alert.alert(`Error code: ${error.code}`, error.message);
+    } else {
+      Alert.alert('Success', 'Your order is confirmed!');
     }
   };
 
@@ -127,7 +191,7 @@ const Cart: FunctionComponent = () => {
         style={[
           styles.checkout,
           {backgroundColor: cart?.length < 1 ? 'gray' : '#000'},
-        ]}>
+        ]} onPress={()=>initializePaymentSheet()} >
         <Text style={styles.button}>Checkout</Text>
       </TouchableOpacity>
     </View>
@@ -148,6 +212,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 14,
     marginHorizontal: responsiveWidth(2),
+    color:'#000'
   },
   image: {
     width: responsiveWidth(12),
@@ -159,11 +224,13 @@ const styles = StyleSheet.create({
   },
   cartIcon: {
     fontSize: responsiveFontSize(2),
+    color:'#000',
   },
   quantity: {
     marginHorizontal: responsiveWidth(3),
     fontSize: responsiveFontSize(2),
     fontWeight: 'bold',
+    color:'#000'
   },
   delete: {
     marginLeft: responsiveWidth(6),
@@ -184,6 +251,7 @@ const styles = StyleSheet.create({
     // marginBottom: responsiveHeight(2),
     marginHorizontal: responsiveWidth(2),
     marginTop: responsiveHeight(1),
+    color:'#000'
   },
   increaseDecreaseOpacity: {
     height: responsiveHeight(4),
